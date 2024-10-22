@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox Check</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<form>
+  <input type="checkbox" class="checkbox-item" value="1"> Option 1<br>
+  <input type="checkbox" class="checkbox-item" value="2"> Option 2<br>
+  <input type="checkbox" class="checkbox-item" value="3"> Option 3<br>
+  <button type="button" id="check-all" class="btn btn-primary">チェック状態確認</button>
+</form>
+
+<!-- Bootstrap 5 モーダル -->
+<div class="modal fade" id="checkModal" tabindex="-1" aria-labelledby="checkModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkModalLabel">チェック結果</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modalMessage">
+        <!-- メッセージがここに表示されます -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('check-all').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('.checkbox-item');
+    let anyChecked = false;
+
+    // 1つでもチェックがあればOKとする
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        anyChecked = true;
+      }
+    });
+
+    const modalMessage = document.getElementById('modalMessage');
+    if (anyChecked) {
+      modalMessage.textContent = '少なくとも1つのチェックボックスが選択されています。';
+    } else {
+      modalMessage.textContent = '1つもチェックされていません。';
+    }
+
+    // モーダルを表示
+    const checkModal = new bootstrap.Modal(document.getElementById('checkModal'));
+    checkModal.show();
+  });
+</script>
+
+</body>
+</html>
